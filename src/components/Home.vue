@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 600px;
+    width: 400px;
     top: 160px;
     left: 700px;
     background-color: gainsboro;
