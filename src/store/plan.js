@@ -13,6 +13,7 @@ export default {
     totalTime: 0,
     planList: []
   },
+
   mutations: {
     [ADD_TOTAL_TIME](state, time) {
       state.totalTime = state.totalTime + time
@@ -28,6 +29,7 @@ export default {
       state.list.splice(id, 1);
     }
   },
+
   actions: {
     [ADD_TOTAL_TIME]({commit}, time) {
       commit(ADD_TOTAL_TIME, time)

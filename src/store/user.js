@@ -7,17 +7,17 @@ export const USER_LOG_OUT = "USER_LOG_OUT";
 
 export default {
   state: {
-    username: JSON.parse(sessionStorage.getItem('username')) || '',
-    isActive: JSON.parse(sessionStorage.getItem('isActive')) || false,
+    username: JSON.parse(localStorage.getItem('username')) || '',
+    isActive: JSON.parse(localStorage.getItem('isActive')) || false,
   },
   mutations: {
     [USER_LOG_IN](state, username) {
-      sessionStorage.setItem('username', JSON.stringify(username));
-      sessionStorage.setItem('isActive', JSON.stringify(true));
+      localStorage.setItem('username', JSON.stringify(username));
+      localStorage.setItem('isActive', JSON.stringify(true));
       Object.assign(state, {username:username,isActive:true})
     },
     [USER_LOG_OUT](state) {
-      sessionStorage.removeItem('isActive');
+      localStorage.removeItem('isActive');
       state.isActive = false
     }
   },

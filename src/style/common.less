@@ -1,13 +1,27 @@
-html body {
+@import "./constant";
+
+html {
   height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;
 }
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  min-width:980px;
+}
+
+div {
+  height: 100%;
+}
 
 .active {
-  font-size: 105%;
-  padding: 3px;
-  border: 1px solid gray;
+  font-size: 115%;
+  padding: 0 20px;
+  border: 1px solid @blue;
   border-radius: 4px;
+  box-shadow: 0.1px 0.1px 150px @pink;
 }

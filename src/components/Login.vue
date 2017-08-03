@@ -1,18 +1,21 @@
 <template>
-  <div class="box">
-    <input class="input" type="text" @focus="clearErr" placeholder="用户名" v-model="username">
-    <p style="font-size: 12px; color:red">{{warning}}</p>
-    <button @click="submit" v-if="btn">登录</button>
+  <div class="container">
+    <canvas id="my-canvas"></canvas>
+    <div class="input-box">
+      <input class="input" type="text" @focus="clearErr" placeholder="用户名" v-model="username">
+      <p style="font-size: 12px; color:red">{{warning}}</p>
+      <button @click="submit" v-if="btn">登录</button>
+    </div>
   </div>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import { mapState } from 'vuex'
-  import { USER_LOG_IN } from '@/store/user'
+  import {mapActions} from 'vuex'
+  import {mapState} from 'vuex'
+  import {USER_LOG_IN} from '@/store/user'
   export default {
-  	data() {
-  		return {
+    data() {
+      return {
         username: this.$store.state.user.username || "",
         warning: '',
         btn: false
@@ -20,18 +23,18 @@
     },
     methods: {
       ...mapActions([USER_LOG_IN]),
-  		submit() {
-  			if (!!this.username) {
-  				this.USER_LOG_IN(this.username);
-  				this.$router.push('home')
+      submit() {
+        if (!!this.username) {
+          this.USER_LOG_IN(this.username);
+          this.$router.push('home')
         }
         else {
-  				this.warning = "请输入用户名"
+          this.warning = "请输入用户名"
         }
       },
       clearErr() {
-      	this.warning = '';
-      	this.btn = true
+        this.warning = '';
+        this.btn = true
       }
     },
     computed: mapState({name: state => state.user.username})
@@ -41,24 +44,20 @@
 <style lang="less" scoped>
   @import '../style/constant.less';
 
-  @keyframes border-extend {
-    to {
-      border-bottom: 2px solid @pink;
-      width: 80%;
-    }
+  .container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-
-  .box {
-    position: relative;
-    top: 250px;
-    left: 40%;
+  .input-box {
     width: 300px;
     height: 200px;
-    border-radius: 15px;
 
     * {
       border: none;
-      outline:none;
+      outline: none;
     }
 
     input {
@@ -81,5 +80,12 @@
       width: 80%;
       color: white;
     }
+  }
+
+  #my-canvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
   }
 </style>

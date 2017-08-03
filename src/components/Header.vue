@@ -37,6 +37,7 @@
 
     .nav {
       line-height: @header-height;
+      display: inline-block;
       margin: 0 60px;
       color: #777;
 
