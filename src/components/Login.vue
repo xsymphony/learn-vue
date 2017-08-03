@@ -13,9 +13,9 @@
   export default {
   	data() {
   		return {
-        username: '',
+        username: this.$store.state.user.username || "",
         warning: '',
-        btn: ''
+        btn: false
       }
     },
     methods: {
@@ -55,7 +55,6 @@
     width: 300px;
     height: 200px;
     border-radius: 15px;
-    font-size:16px;
 
     * {
       border: none;
@@ -65,6 +64,7 @@
     input {
       width: 60%;
       height: 30px;
+      color: gray;
       transition: width, border-color, 1s, ease-in-out;
       border-bottom: 2px solid @green;
 

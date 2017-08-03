@@ -7,10 +7,12 @@ export default  [
     children: [
       {
         path: '',
-        component: solve => require(['@/pages/Home'], solve)
+        meta: { requiresAuth: true },
+        component: solve => require(['@/pages/Home'], solve),
       },
       {
         path: '/home',
+        meta: { requiresAuth: true },
         component: solve => require(['@/pages/Home'], solve)
       },
       {
