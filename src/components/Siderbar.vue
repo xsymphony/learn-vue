@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import { mapState } from 'vuex'
   export default {
   	computed: mapState({time: state => state.plan.totalTime})
   }
@@ -21,7 +21,7 @@
     position: fixed;
     top: 160px;
     left: 160px;
-    background-color: gainsboro;
+    background-color: #f8f8f8;
     padding: 20px;
     width: 300px;
   }

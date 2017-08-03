@@ -7,11 +7,15 @@ export default  [
     children: [
       {
         path: '',
-        component: solve => require(['@/components/Home'], solve)
+        component: solve => require(['@/pages/Home'], solve)
       },
       {
         path: '/home',
-        component: solve => require(['@/components/Home'], solve)
+        component: solve => require(['@/pages/Home'], solve)
+      },
+      {
+        path: '/login',
+        component: solve => require(['@/pages/Login'], solve)
       }
     ]
   }
