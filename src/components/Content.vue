@@ -1,26 +1,14 @@
 <template>
-  <div>
-    <common-bar></common-bar>
-    <div class="box">
-      <div><h1>任务</h1></div>
-      <div>
-        <p>
-          <strong>
-            <router-link to="/entries">
-              创建一个新任务
-            </router-link>
-          </strong>
-        </p>
-      </div>
-    </div>
+  <div class="box">
+    <common-clock></common-clock>
   </div>
 </template>
 
 <script>
-  import Bar from "@/components/Siderbar";
+  import Clock from "@/components/Clock";
   export default {
     components: {
-      "commonBar": Bar
+      "commonClock": Clock
     }
   }
 </script>
@@ -36,6 +24,5 @@
     left: 700px;
     background-color: #f8f8f8;
     padding: 20px;
-
   }
 </style>
