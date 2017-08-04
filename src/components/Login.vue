@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <canvas id="my-canvas"></canvas>
     <div class="input-box">
       <input class="input" type="text" @focus="clearErr" placeholder="用户名" v-model="username">
       <p style="font-size: 12px; color:red">{{warning}}</p>

@@ -31,6 +31,7 @@
     flex-direction: column;
     position: relative;
     width: 400px;
+    height: auto;
     top: 160px;
     left: 700px;
     background-color: #f8f8f8;

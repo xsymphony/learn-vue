@@ -9,6 +9,11 @@
   export default {
   	components: {
   		"commonLogin": LoginBox
+    },
+    created() {
+  		if(this.$store.state.user.isActive) {
+  			this.$router.push('/home')
+      }
     }
   }
 </script>

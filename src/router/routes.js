@@ -16,6 +16,10 @@ export default  [
   {
     path: '/login',
     component: solve => require(['@/pages/Login'], solve)
+  },
+  {
+    path: '*',
+    redirect: '/home'
   }
 ];
 
