@@ -10,20 +10,21 @@ export const RESET_ALL = 'RESET_ALL';
 
 export default {
   state: {
-    totalTime: 0,
-    planList: []
+    totalTime: parseInt(JSON.parse(localStorage.getItem('totalTime'))) || 0,
+    planList: JSON.parse(localStorage.getItem('planList')) || [],
   },
 
   mutations: {
     [ADD_TOTAL_TIME](state, time) {
-      state.totalTime = state.totalTime + time
+      state.totalTime = state.totalTime + time;
+      localStorage.setItem('totalTime', JSON.stringify(state.totalTime))
     },
     [RESET_ALL](state) {
-      state.totalTime = 0;
-      state.planList = 0;
+      localStorage.removeItem('planList')
     },
     [SAVE_PLAN](state, plan) {
-      state.planList.push(plan)
+      state.planList.push(plan);
+      localStorage.setItem('planList', JSON.stringify(state.planList))
     },
     [DELETE_PLAN](state, id) {
       state.list.splice(id, 1);

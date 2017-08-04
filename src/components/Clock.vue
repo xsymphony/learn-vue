@@ -6,7 +6,7 @@
       <div class="process bg" v-bind:style="{width: clock.width+`px`}"></div>
       <div class="time">{{time.min}}:{{time.sec}}</div>
     </div>
-    <span v-if="!config.isTiming"><p>新的任务</p><input v-model="planInfo.describe"/></span>
+    <span v-if="!config.isTiming"><p>新的任务:</p><input v-model="planInfo.describe"/></span>
     <button @click="startTiming">{{config.button}}</button>
     <p>{{warning.content}}</p>
     <div class="settime">
@@ -24,6 +24,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import { SAVE_PLAN } from '@/store/plan'
+  import { ADD_TOTAL_TIME } from '@/store/plan'
   export default {
     data () {
       return {
@@ -57,6 +60,7 @@
       }
     },
     methods: {
+      ...mapActions([SAVE_PLAN,ADD_TOTAL_TIME]),
       test () {
         if (this.config.speed >= 10) {
           this.config.speed = this.config.speed / 10;
@@ -99,9 +103,12 @@
           this.time.sec = this.addZero(this.time.sec - 1);
           this.config.timer = window.setTimeout(this.updateProgress, this.config.speed)
         } else {
+          this.planInfo.endTime = new Date();
+          this.planInfo.finished = true;
+          this.SAVE_PLAN(this.planInfo);
+          this.ADD_TOTAL_TIME(this.time.workTime)
           this.reset();
           window.alert('任务完成啦');
-          this.planInfo.endTime = new Date();
           window.clearTimeout(this.config.timer)
         }
       },
