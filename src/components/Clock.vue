@@ -4,11 +4,10 @@
     <div class="process_box" v-if="this.config.isTiming">
       <div class="process main" v-bind:style="{width: clock.process_width+`px`}">{{percentage}}</div>
       <div class="process bg" v-bind:style="{width: clock.width+`px`}"></div>
-      <div class="time">{{time.min}}:{{time.sec}}</div>
+      <div class="time"><h1>{{time.min}}:{{time.sec}}</h1></div>
     </div>
-    <span v-if="!config.isTiming"><p>新的任务:</p><input v-model="planInfo.describe"/></span>
     <button @click="startTiming">{{config.button}}</button>
-    <p>{{warning.content}}</p>
+    <p v-if="!config.isTiming">{{warning.content}}</p>
     <div class="settime">
       <input type="checkbox" id="checkbox" v-model="config.setting">
       <label for="checkbox">设置</label>
@@ -25,7 +24,6 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import { SAVE_PLAN } from '@/store/plan'
   import { ADD_TOTAL_TIME } from '@/store/plan'
   export default {
     data () {
@@ -42,12 +40,6 @@
           min: '25',
           workTime: 25,
         },
-        planInfo: {
-          startTime: '',
-          endTime: '',
-          describe: '工作',
-          finished: false
-        },
         clock: {
           width: 300,
           process_width: 0,
@@ -60,7 +52,7 @@
       }
     },
     methods: {
-      ...mapActions([SAVE_PLAN,ADD_TOTAL_TIME]),
+      ...mapActions([ADD_TOTAL_TIME]),
       test () {
         if (this.config.speed >= 10) {
           this.config.speed = this.config.speed / 10;
@@ -77,7 +69,6 @@
             this.warning.bool = true;
             this.warning.content = '请输入15~60分钟之间的整数'
           } else {
-            this.planInfo.startTime = new Date();
             this.warning.bool = false;
             this.time.min = this.time.workTime;
             this.config.isTiming = true;
@@ -103,11 +94,8 @@
           this.time.sec = this.addZero(this.time.sec - 1);
           this.config.timer = window.setTimeout(this.updateProgress, this.config.speed)
         } else {
-          this.planInfo.endTime = new Date();
-          this.planInfo.finished = true;
-          this.SAVE_PLAN(this.planInfo);
-          this.ADD_TOTAL_TIME(this.time.workTime)
           this.reset();
+          this.ADD_TOTAL_TIME(this.time.workTime);
           window.alert('任务完成啦');
           window.clearTimeout(this.config.timer)
         }

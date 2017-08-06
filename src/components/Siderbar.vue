@@ -6,8 +6,9 @@
     <div class="panel-body">
       {{ time }}分钟
     </div>
+    <input type="text" @keyup.enter="add_todo" v-model="newPlan.describe" placeholder="要做什么呢">
     <div v-for="plan in planList" @click="remove_this">
-      {{plan.describe}}
+      {{plan.id}}{{plan.describe}}{{plan.done}}
     </div>
   </div>
 </template>
@@ -15,13 +16,22 @@
 <script>
   import {mapActions} from 'vuex'
   import {mapState} from 'vuex'
-  import {DELETE_PLAN} from '@/store/plan'
+  import {ADD_PLAN, DELETE_PLAN} from '@/store/plan'
   export default {
+    data() {
+      return {
+        newPlan: {
+          id: '',
+          describe: '',
+          done: false,
+        }
+      }
+    },
     mounted() {
       console.log(this.planList)
     },
     methods: {
-      ...mapActions([DELETE_PLAN]),
+      ...mapActions([ADD_PLAN, DELETE_PLAN]),
       remove_this(e) {
         console.log(this.target.value)
       }

@@ -11,7 +11,7 @@
 <script>
   import {mapActions} from 'vuex'
   import {mapState} from 'vuex'
-  import {USER_LOG_IN} from '@/store/user'
+  import { USER_LOG_IN } from '@/store/user'
   export default {
     data() {
       return {
