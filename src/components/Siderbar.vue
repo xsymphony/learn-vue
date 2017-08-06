@@ -1,12 +1,16 @@
 <template>
   <div class="panel">
-    <input type="text" @keyup.enter="add_this" v-model="newPlan.describe" placeholder="要做什么呢">
+    <input type="text" @keyup.enter="add_this" v-model="newPlan.describe"
+           placeholder="要做什么呢">
     <ul class="todo-list list-group">
-      <li v-for='plan in planList'>
+      <li v-for='plan in planList' class="list-group-item"
+          :class="{'hover-this':selectedPlan === plan.id}"
+          @mouseenter="hover_this(plan.id)" @mouseleave="hover_this(plan.id)">
           <span class="form-group">
-            <input type="checkbox" :key="plan.id" :checked="plan.done" @click="update_this(plan)"/>
+            <input type="checkbox" :key="plan.id" :id="plan.id"
+                   :checked="plan.done" @click="update_this(plan)"/>
             <label :for="plan.id">{{plan.describe}}</label>
-            <strong @click="remove_this(plan)">X</strong>
+            <strong @click="remove_this(plan)" class="x-default x-active">[X]</strong>
           </span>
       </li>
     </ul>
@@ -26,7 +30,7 @@
   export default {
     data() {
       return {
-      	show: false,
+        selectedPlan: '',
         newPlan: {
           id: '',
           describe: '',
@@ -38,16 +42,23 @@
     methods: {
       ...mapActions([ADD_PLAN, DELETE_PLAN, UPDATE_PLAN]),
       add_this() {
-      	let plan = Object.assign({},this.newPlan)
+        let plan = Object.assign({}, this.newPlan);
         this.ADD_PLAN(plan);
-      	this.newPlan.describe = '';
+        this.newPlan.describe = '';
         console.log(plan.id);
       },
       remove_this(plan) {
-      	this.DELETE_PLAN(plan.id)
+        this.DELETE_PLAN(plan.id)
       },
       update_this(plan) {
-      	this.UPDATE_PLAN(plan)
+        this.UPDATE_PLAN(plan)
+      },
+      hover_this(id) {
+      	if (this.selectedPlan === id) {
+      		this.selectedPlan = '';
+      		return
+        }
+      	this.selectedPlan = id;
       }
     },
 
@@ -61,6 +72,9 @@
 </script>
 
 <style lang="less" scoped>
+  .x-default {
+    display: none;
+  }
   .panel {
     position: fixed;
     top: 160px;
@@ -69,5 +83,23 @@
     padding: 20px;
     width: 300px;
     height: auto;
+  }
+  .todo-list{
+    font-size: 1.5rem;
+    margin-top:0.5rem;
+
+    li {
+      position: relative;
+      padding-right:20px;
+    }
+    .hover-this {
+      background: #e5e5e5;
+
+      span {
+        .x-active {
+          display: inline;
+        }
+      }
+    }
   }
 </style>
