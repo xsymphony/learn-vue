@@ -5,6 +5,7 @@ export const ADD_TOTAL_TIME = 'ADD_TOTAL_TIME';
 
 export const ADD_PLAN = 'ADD_PLAN';
 export const DELETE_PLAN = 'DELETE_PLAN';
+export const UPDATE_PLAN = 'UPDATE_PLAN';
 
 export const RESET_ALL = 'RESET_ALL';
 
@@ -20,15 +21,22 @@ export default {
       localStorage.setItem('totalTime', JSON.stringify(state.totalTime))
     },
     [RESET_ALL](state) {
-      localStorage.removeItem('planList')
+      localStorage.removeItem('planList');
       localStorage.removeItem('totalTime')
     },
     [ADD_PLAN](state, plan) {
+      const index = state.planList.length>0 ? state.planList[state.planList.length - 1].id + 1 : 0;
+      plan.id = index;
       state.planList.push(plan);
       localStorage.setItem('planList', JSON.stringify(state.planList))
     },
     [DELETE_PLAN](state, id) {
       state.list.splice(id, 1);
+    },
+    [UPDATE_PLAN](state, plan) {
+      plan.done = !plan.done;
+      Object.assign(state, plan);
+      localStorage.setItem('planList', JSON.stringify(state.planList))
     }
   },
 
@@ -44,6 +52,9 @@ export default {
     },
     [DELETE_PLAN]({commit}, plan) {
       commit(DELETE_PLAN, plan)
+    },
+    [UPDATE_PLAN]({commit}, plan) {
+      commit(UPDATE_PLAN, plan)
     }
   }
 }
