@@ -34,18 +34,17 @@
         }
       }
     },
-    mounted() {
-      console.log(this.index)
-    },
+
     methods: {
       ...mapActions([ADD_PLAN, DELETE_PLAN, UPDATE_PLAN]),
       add_this() {
       	let plan = Object.assign({},this.newPlan)
         this.ADD_PLAN(plan);
+      	this.newPlan.describe = '';
         console.log(plan.id);
       },
       remove_this(plan) {
-      	this.DELETE_PlAN(plan)
+      	this.DELETE_PLAN(plan.id)
       },
       update_this(plan) {
       	this.UPDATE_PLAN(plan)
@@ -57,14 +56,6 @@
         time: state => state.plan.totalTime,
         planList: state => state.plan.planList,
       }),
-
-      index() {
-      	try {
-          return this.planList[this.planList.length - 1].id + 1
-        } catch (e) {
-          return 0;
-        }
-      }
     }
   }
 </script>

@@ -31,11 +31,19 @@ export default {
       localStorage.setItem('planList', JSON.stringify(state.planList))
     },
     [DELETE_PLAN](state, id) {
-      state.list.splice(id, 1);
+      for (let plan of state.planList) {
+        if (plan.id === id) {
+          const index = state.planList.indexOf(plan);
+          console.log(index);
+          state.planList.splice(index,1);
+          localStorage.setItem('planList', JSON.stringify(state.planList))
+          break;
+        }
+      }
     },
     [UPDATE_PLAN](state, plan) {
       plan.done = !plan.done;
-      Object.assign(state, plan);
+      Object.assign(state.planList, plan);
       localStorage.setItem('planList', JSON.stringify(state.planList))
     }
   },
