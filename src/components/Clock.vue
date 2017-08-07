@@ -2,8 +2,9 @@
   <div class="timing">
     <h1>计时</h1>
     <div class="process_box" v-if="this.config.isTiming">
-      <div class="process main" v-bind:style="{width: clock.process_width+`px`}">{{percentage}}</div>
-      <div class="process bg" v-bind:style="{width: clock.width+`px`}"></div>
+      <div class="process bg" v-bind:style="{width: clock.width+`px`}">
+        <div class="process main" v-bind:style="{width: clock.process_width+`px`}">{{percentage}}</div>
+      </div>
       <div class="time"><h1>{{time.min}}:{{time.sec}}</h1></div>
     </div>
     <button @click="startTiming">{{config.button}}</button>
@@ -23,8 +24,8 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-  import { ADD_TOTAL_TIME } from '@/store/plan'
+  import {mapActions} from 'vuex'
+  import {ADD_TOTAL_TIME} from '@/store/plan'
   export default {
     data () {
       return {
@@ -124,34 +125,38 @@
       }
     },
     computed: {
-    	percentage: function () {
+      percentage: function () {
         return (this.clock.process_width / this.clock.width * 100).toFixed(1) + "%"
       },
       current_speed: function () {
-        return (1000/this.config.speed)
+        return (1000 / this.config.speed)
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  .process_box {
-    position: relative;
+  .timing {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: auto;
+    top: 160px;
+    left: 700px;
+    background-color: #f8f8f8;
+    padding: 20px;
   }
-  .process {
-    border-right: none;
-    height: 20px;
-  }
-  .main {
-    background-color: #FF6666;
-    z-index:2;
-    text-align: center;
-  }
+
   .bg {
-    background-color: black;
-    position: absolute;
-    opacity: 0.1;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 0 8px 4px #ccc inset;
     top: 0;
-    z-index: 1;
+
+    .main {
+      background-color: #FF6666;
+      text-align: center;
+      border-radius: 3px;
+    }
   }
 </style>
